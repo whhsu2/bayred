@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Homeluten Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/lib/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="options.css">
+    <script src="/lib/firebase-app.js"></script>
+    <script src="/lib/firebase-firestore.js"></script>
+    <script src="/lib/firebase-remote-config.js"></script>
+    <script src="/lib/firebase-auth.js"></script>
+    <script src="/configs/firebase_init.js"></script>
+    <script src="/lib/jquery.js"></script>
+    <script src="/utils/utils.js"></script>
+  </head>
+  <body>
+    <div id="root-container" class="container-fluid">
+      <div id="status" class="alert alert-success">Account Created!</div>
+
+      <form id="login" style="display: none;">
+        <table class="table table-responsive table-striped extension-options">
+          <thead>
+            <tr>
+              <th>Please enter your Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="email" id="email-input" class="form-control" placeholder="e.g. example@example.com" required></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div id="login-form-handler" class="text-center">
+          <button id="login-btn" class="btn btn-primary" type="submit">Login</button>
+        </div>
+        <div class="text-center" style="margin-top: 30px; font-style: italic; font-size: 10px;">*We do NOT sell your data. We won't spam your email. You can find our complete data privacy terms <a href="https://homeluten.page.link/privacy-policy" target="_blank" rel="noopener noreferrer">here</a>.</div>
+      </form>
+
+      <form id="login-code" style="display: none;">
+        <table class="table table-responsive table-striped extension-options">
+          <thead>
+            <tr>
+              <th>Please enter the login code you received in your email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="text" id="login-code-input" class="form-control" required></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div id="login-code-handler" class="text-center">
+          <button id="login-code-btn" class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+
+      <div id="settings" class="container">
+        <table class="table table-responsive table-striped extension-options">
+          <thead>
+            <tr>
+              <th>Settings</th>
+              <th style="text-align: right; font-weight: normal;">
+                <button id="user-email" class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                <ul class="dropdown-menu dropdown-menu-dark" style="min-width: 0;" aria-labelledby="user-email">
+                  <li><button id="logout" class="dropdown-item">Sign out</button></li>
+                </ul>
+              </th>
+            </tr>
+          </thead>
+        </table>
+
+        <div class="row row-cols-xl-1 row-cols-xl-2 row-cols-xl-3 row-cols-xl-4 row-cols-xl-5">
+          <div class="col mb-4">
+            <div class="card shadow-sm" id="homelutenPro">
+              <img src="/images/homeluten_logo.png" class="card-img-top locked" alt="homeluten logo">
+              <span class="limited-time-free-access badge bg-success">Limited Time Free Access</span>
+              <div class="card-body">
+                <h5 class="card-title">Homeluten Pro <span class="badge rounded-pill bg-secondary text-gray" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unlock Pro features like Crime Data and Noise Data with Homeluten Pro Subscription.">?</span></h5>
+                <p class="card-text">
+                  Unlock PRO data with our popular paid subscription
+                </p>
+              </div>
+              <button href="https://homeluten.page.link/pro" target="_blank" rel="noopener noreferrer" class="btn btn-primary unlock">Upgrade</button>
+
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#proModal" style="display: none;">
+                Manage
+              </button>
+              <!-- Modal -->
+              <div class="modal fade" id="proModal" tabindex="-1" aria-labelledby="proModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="proModalLabel">Pro Instructions</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Thanks for being a PRO member.
+                      <br><br>
+                      Your <span class="badge rounded-pill bg-primary text-gray">PRO</span> membership expires/renews at:<br><span id="pro-expiration" style="font-weight: bold;"></span>
+                      <br><br>
+                      You can manage your subscription by clicking on the Manage Subscription button below.
+                    </div>
+                    <div class="modal-footer">
+                      <form class="billing" method="POST" target="_black" rel="noopener noreferrer" action="https://us-central1-homeluten.cloudfunctions.net/billing">
+                        <button type="submit" class="btn btn-primary">Manage Subscription</button>
+                      </form>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col mb-4">
+            <div class="card shadow-sm" id="byom">
+              <img src="/images/byom_logo.jpeg" class="card-img-top" alt="byom logo">
+              <span class="limited-time-free-access badge bg-success">Limited Time Free Access</span>
+              <div class="card-body">
+                <h5 class="card-title">Name Your Feature</h5>
+                <p class="card-text">
+                  Request additional features to be added
+                </p>
+              </div>
+              <a class="btn btn-primary" href="https://homeluten.page.link/feature-request" target="_blank" rel="noopener noreferrer" role="button">Request</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post Unlock Modal -->
+        <div class="modal fade" id="subModal" tabindex="-1" aria-labelledby="subModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="subModalLabel">Upgrade Instructions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <b style="background-color: yellow;">Do not upgrade multiple times if your payment has gone through, it takes some time for your subscription to be activated. Multiple submissions will result in duplicated charges on your card.</b>
+                <br>
+                <br>
+                Once you've successfully completed the payment, please refresh this page to enable your Subscriptions. <b style="background-color: yellow;">Please make sure you logged into the same email address you used for payment.</b><br><br>
+                Most subscriptions are activated on your account within 5 mins. If your subscriptions are not activated after 5 mins, please email <strong>support@homeluten.com</strong> so we can help.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pro Promo Unlock Modal -->
+        <div class="modal fade" id="promo-modal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="promoModalLabel">Pro Upgrade Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Thank you for rating our extension. We really appreciate it as it provided important feedback for us to continue to improve Homelute.
+                <br>
+                <br>
+                <b style="background-color: greenyellow;">Your Pro subscription is now activated.</b>
+                <br>
+                <br>
+                Please refresh this page for the upgrade to take effect.  Most subscriptions are activated on your account within 5 mins. If your subscriptions are not activated after 5 mins, please email <strong>support@homeluten.com</strong> so we can help.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pro Promo Unlock Failed Modal -->
+        <div class="modal fade" id="promo-failed-modal" tabindex="-1" aria-labelledby="promoFailedModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="promoFailedModalLabel">Failed to Apply Promotion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Thank you for rating our extension. We really appreciate it as it provided important feedback for us to continue to improve Homeluten.
+                <br>
+                <br>
+                <b style="background-color:darkorange">Unfortunately, we are unable to apply this promotion to your account because you've either previously claimed this offer or already had a Pro subscription.</b>
+                <br>
+                <br>
+                Please email <strong>support@homeluten.com</strong> if you have any questions.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="feedback" class="text-center">
+        <a class="btn btn-info" href="https://homeluten.page.link/how-to-use" target="_blank" rel="noopener noreferrer" role="button">Learn How to Use Homeluten</a>
+        <br>
+        <br>
+        <a href="mailto:support@homeluten.com" target="_blank" rel="noopener noreferrer">Customer Support</a> | <a target="_blank" rel="noopener noreferrer" href="https://chrome.google.com/webstore/detail/redfin-superchaged-by-hom/dmlmenebejdemdbmgldkpckfbmijlchh/reviews">Feedback</a> | <a target="_blank" rel="noopener noreferrer" href="https://homeluten.page.link/report-bug">Report Bug</a> | <a href="https://homeluten.page.link/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+        <br>
+        &copy; Homeluten. All rights reserved. <br>
+      </div>
+    </div>
+    
+    <script src="/lib/bootstrap.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./popup.css">
+    <script src="/lib/jquery.js"></script>
+  </head>
+  <body>
+    <div id="popup-header" class="flex-container">
+      <div class="flex-child magenta logo">Homeluten</div>
+      <a href="#" id="settings-link" class="flex-child magenta settings">Settings</a>
+    </div>
+    <div id="popup-content" class="center">
+      <div id="cta-content">
+        <div id="timer" style="display: none;">Homeluten is running...<br><br>
+          <span style="background-color: yellow;">Use the bubble tool box at bottom left of the screen to access enhancement features. This extension only works on individual listing pages and map search pages (map support is Redfin only)</span>
+        </div>
+        <div id="not-supported" style="display: none;">We currently only support Redfin, Zillow and Realtor. Support for other real estate sites will come later.</div>
+        <div id="start-info" style="display: none;">Click Enable button to run Homeluten on this site. <br><br> <span style="background-color: yellow;">You will see a bubble tool box at bottom left of the screen once enabled. This extension only works on individual listing pages and map search pages (map support is Redfin only)</span></div>
+        <div id="login-info" style="display: none;">Click the button below to login before using Homeluten.</div>
+        <div id="unlock-info" style="display: none;">We support this merchant, please click the button below to unlock your access.</div>
+      </div>
+      <div class="button center">
+        <button id="start" clsss="btn btn-primary" style="display: none;">Enable</button>
+        <button id="stop" clsss="btn btn-primary" style="display: none;">Disable</button>
+        <button id="login" clsss="btn btn-primary" style="display: none;">Login</button>
+        <button id="settings" clsss="btn btn-primary" style="display: none;">Open Redfin.com</button>
+        <button id="unlock" clsss="btn btn-success" style="display: none;">Unlock</button>
+      </div>
+      <div id="popup-version" style="font-size: smaller; margin-top: 5px;"><span id="new-features-banner" style="color: red;font-size: 10px; display: none; margin-right: 5px;">New!</span></div>
+      <br>
+      <a href="mailto:support@homeluten.com" target="_blank" rel="noopener noreferrer">Customer Support</a> | <a target="_blank" rel="noopener noreferrer" href="https://homeluten.page.link/report-bug">Report Bug</a> | <a href="https://homeluten.page.link/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+      <script src="./popup.js"></script>
+    </div>
+  </body>
+</html>

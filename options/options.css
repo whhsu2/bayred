@@ -1,0 +1,71 @@
+#proModal span.badge {
+  background: blueviolet !important;
+}
+
+.container-fluid {
+  padding-top: 15px;
+}
+
+#settings .card-body {
+  padding-bottom: 0;
+}
+
+.extension-options {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  height: 330px;
+}
+
+.card-img-top {
+  height: 143px;
+  object-fit: contain;
+}
+
+.card-img-top.locked {
+  opacity: 0.5;
+}
+
+.card a.btn, .card button {
+  margin: 10px 40px 10px 40px;
+}
+
+.limited-time-free-access {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0;
+  opacity: 0.9;
+  width: 100%;
+}
+
+.modal a.btn, .modal button {
+  margin: 10px 10px 10px 10px;
+}
+
+.modal .input-group-text {
+  width: 150px;
+  justify-content: end;
+}
+
+.modal .tab-pane .pro-info {
+  margin-bottom: 20px;
+}
+
+.tab-content {
+  padding-top: 30px;
+}
+
+#status {
+  visibility: hidden;
+}
+
+
+#feedback {
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
